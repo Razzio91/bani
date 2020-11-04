@@ -3,7 +3,6 @@
 include_once "resources/session.php";
 include_once "resources/database.php";
 include_once "resources/utilities.php";
-
 ?>
 
 
@@ -14,9 +13,7 @@ include_once "resources/utilities.php";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
+    <link rel="stylesheet" href="css/headers.css">
 
 
     </script>
@@ -26,50 +23,38 @@ include_once "resources/utilities.php";
 
 <body>
 
-    <nav class="navbar navbar-expand-md  bg-white fixed-top">
-
-        <a class="navbar-brand" href="index.php"><img src="img/test.png" alt="" style="margin-left: 100px; width: 60%; display:block;"></a>
 
 
 
+    <div class="navbar" id="navbar">
+        <a class="navbar-brand" href="index.php">
+            <img src="img/Boni_logo.jpg">
+        </a>
+
+        <div class="nav-links">
 
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar">
-
-            <ul class="nav navbar-nav">
+            <!-- if the session you are in has the username or the cookie is in the database show: -->
+            <?php if ((isset($_SESSION['klant_id']) || isCookieValid($db))) : ?>
 
 
-                <!-- if the session you are in has the username or the cookie is in the database show: -->
-                <?php if ((isset($_SESSION['klant_id']) || isCookieValid($db))) : ?>
+                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link" href="wachtwoordReset.php">Verander wachtwoord</a>
+                <a class="nav-link" href="bestelling.php">Bestelling</a>
+                <!-- if username is not active and there is no account available show -->
+            <?php else : ?>
+                <a class="nav-link" href="login.php">Login</a>
+                <a class="nav-link" href="signup.php">Registreren</a>
+                <!-- end if/else php statement -->
 
-                    <a class="nav-link" href="logout.php">Logout</a>
+            <?php endif ?>
+            <a class="nav-link" href="categories.php">Categorieën</a>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Damage Reports</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" name="changePass" href="wachtwoordReset.php" >Change Password</a>
-
-                        </div>
-                    </li>
-                    <!-- if username is not active and there is no account available show -->
-                <?php else : ?>
-                    <a class="nav-link" href="login.php">Login</a>
-                    <a class="nav-link" href="signup.php">Register</a>
-                    <a class="nav-link" href="bestelling.php">Bestelling</a>
-                    <!-- end if/else php statement -->
-
-                <?php endif ?>
-
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
-
-            </form>
         </div>
+        <form class="search-form">
+            <input class="searchbar" type="text" placeholder="Search" aria-label="Search">
+        </form>
+
+    </div>
 
     </nav>
-    

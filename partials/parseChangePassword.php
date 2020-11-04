@@ -36,16 +36,17 @@ if (isset($_POST['changePasswordBtn'], $_POST['token'])) {
             if ($password1 != $password2) {
                 $result = flashMessage("New password and confirm does not match");
             } else {
-                    try {
+                try {
                     //process request//checks if old password == inTheDatabase
-                    $sqlQuery = "SELECT wachtwoord FROM klant WHERE id =:klant_id";
+                    $sqlQuery = "SELECT wachtwoord FROM klant WHERE klant_id = :klant_id";
                     $statement = $db->prepare($sqlQuery);
 
                     $statement->execute(array(':klant_id' => $id));
 
                     //checks if record is found
+                    $row = $statement->fetch();
 
-                    if ($row = $statement->fetch()) {
+                    if ($row) {
                         $password_from_db = $row['wachtwoord'];
 
                         if (password_verify($current_password, $password_from_db)) {
@@ -54,33 +55,19 @@ if (isset($_POST['changePasswordBtn'], $_POST['token'])) {
                             $hashed_password = password_hash($password1, PASSWORD_DEFAULT);
 
                             //SQL Stmt to update password
-                            $sqlUpdate = "UPDATE klant SET wachtwoord = :wachtwoord WHERE id=:klant_id";
+                            $sqlUpdate = "UPDATE klant SET wachtwoord = :wachtwoord WHERE klant_id=:klant_id";
                             $statement = $db->prepare($sqlUpdate);
                             $statement->execute(array(':wachtwoord' => $hashed_password, ':klant_id' => $id));
                             // if everything worked out and there is a new entry to the row count show a success message
                             if ($statement->rowCount() === 1) {
 
-                                $result = "<script type=\"text/javascript\">
-                                swal({
-                                    title:\"Operation Successful!\",
-                                    text:\"Password updated successfully!\",
-                                    type: 'success',
-                                    confirmButtonText: \"Thank You!\"});
-                                    </script>";
-                            }else{
+                                $result = flashMessage("Changes Saved!");
+                            } else {
                                 $result = flashMessage("No changes Saved!");
-                            
-                            
-                        }
-                     } else {
-                            $result = "<script type=\"text/javascript\">
-                            swal({
-                                title:\"OOPS!!\",
-                                text:\"old password is not correct, please try again\",
-                                type: 'error',
-                                confirmButtonText: \"Ok!\"});
-                                </script>";
                             }
+                        } else {
+                            $result = flashMessage("Old password is wrong!");
+                        }
                     } else {
                         signout();
                     }
@@ -88,7 +75,7 @@ if (isset($_POST['changePasswordBtn'], $_POST['token'])) {
                     $result = flashMessage("An error occurred: " . $ex->getMessage());
                 }
             }
-        }else {
+        } else {
             //counts the amount (empty forms array, wrong password etc)of errors in the form and shows this 
             if (count($form_errors) == 1) {
                 $result = flashMessage("There was 1 error in the form<br>");
@@ -96,13 +83,10 @@ if (isset($_POST['changePasswordBtn'], $_POST['token'])) {
                 //if there are more errors show them
                 $result = flashMessage("There were : " . count($form_errors) . " errors in the form<br>");
             }
-          }
+        }
     } else //
     {
 
-        $result = "<script type = 'text/javascript'>
-        swal('Error', 'This request originates from an unknown source, possible attack!', 
-        'error');
-        </script>";
+        $result = flashMessage('This request originates from an unknown source, possible attack!');
     }
 }

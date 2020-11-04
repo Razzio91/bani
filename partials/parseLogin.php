@@ -58,17 +58,8 @@ if (isset($_POST["loginBtn"], $_POST['token'])) {
                         rememberMe($id);
                     }
     
-                    echo $welcome="<script type=\"text/javascript\">
-                    swal({
-                        title: \"Welcome back $voornaam!\",
-                        text: \"You're being logged in!\",
-                        type: 'success',
-                        timer: 6000,
-                       showConfirmButton: false});
-                    setTimeout(function(){
-                        window.location.href='index.php';
-                    }, 5000);
-                    </script>";
+                    $result = flashMessage("Welcome back");
+                    redirectTo("index");
     
                    
                 } else 
@@ -94,9 +85,8 @@ if (isset($_POST["loginBtn"], $_POST['token'])) {
    }else{
 
 //throw an error if token is not valid
-$result = "<script type= 'text/javascript'>
-swal('Error', 'This request originates from an unknown source, possible attack!', 'error');
-</script>";
+$result = flashMessage("This request originates from an unknown source, possible attack!");
+
 
    }
     }

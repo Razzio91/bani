@@ -6,14 +6,12 @@ include_once 'partials/headers.php';
 include_once 'partials/parseSignup.php'; ?>
 
 
-<div>
-    <img src="img/register.jpg" style="width: 107.3%; height: 200px; position: relative; right: 51px; display:block;" alt=""></div>
 
 <div class="container">
     <section class="col col-lg-7">
 
         <br>
-        <h2>Registration Form</h2>
+        <h2>Registreren</h2>
         <hr>
 
 
@@ -29,18 +27,18 @@ include_once 'partials/parseSignup.php'; ?>
         <div class="clearfix"></div>
         <form action=" " method="post">
             <div class="form-group">
-                <label for="voornaamField">voornaam</label>
+                <label for="voornaamField">Voornaam</label>
                 <input type="text" class="form-control" id="voornaamField" name="voornaam" placeholder="Voornaam">
 
             </div>
-           <!-- tussenvoegsel verwerpen -->
-                <div class="form-group">
-                    <label for="tussenvoegsel">tussenvoegsel</label>
-                    <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel" placeholder="Tussenvoegsel">
+            <!-- tussenvoegsel verwerpen -->
+            <div class="form-group">
+                <label for="tussenvoegsel">Tussenvoegsel</label>
+                <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel" placeholder="Tussenvoegsel">
 
-                </div>
+            </div>
 
-                <div class="form-group">
+            <div class="form-group">
                 <label for="achterField">Achternaam</label>
                 <input type="text" class="form-control" id="achterField" name="achternaam" placeholder="Achternaam">
 
@@ -60,19 +58,19 @@ include_once 'partials/parseSignup.php'; ?>
                 <input type="text" class="form-control" id="telField" name="telefoonnummer" placeholder="Telefoonnummer">
 
             </div>
-                <div class="form-group">
-                    <label for="wachtwoordField">Password</label>
-                    <input type="wachtwoord" name="wachtwoord" class="form-control" id="wachtwoordField" placeholder="wachtwoord">
-                </div>
-                <div class="form-group">
-                <label for="emailField">E-mail address</label>
+            <div class="form-group">
+                <label for="wachtwoordField">Wachtwoord</label>
+                <input type="wachtwoord" name="wachtwoord" class="form-control" id="wachtwoordField" placeholder="Wachtwoord">
+            </div>
+            <div class="form-group">
+                <label for="emailField">E-mail adres</label>
                 <input type="text" class="form-control" id="emailField" name="email" placeholder="E-mail">
 
             </div>
-                <input type="hidden" name="token" value="<?php if(function_exists('_token')) echo _token(); ?>">
-                <button style="float: right" type="submit" name="signupBtn" class="btn btn-primary">Signup</button>
-            </form>
-            <a href="index.php">Back</a>
+            <input type="hidden" name="token" value="<?php if (function_exists('_token')) echo _token(); ?>">
+            <button type="submit" name="signupBtn" class="btn btn-primary">Registreren</button>
+        </form>
+        <a href="index.php">Terug</a>
 
     </section>
 </div>

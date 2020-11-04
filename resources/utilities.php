@@ -1,5 +1,7 @@
 <?php
 
+
+
 function check_empty_fields($required_fields_array)
 {
     $form_errors = array();
@@ -120,7 +122,7 @@ function isCookieValid($db)
         $userID = $user_id[1];
 
         //does the ID exist in the db?
-        $sqlQuery = "SELECT * FROM klant WHERE id = :klant_id";
+        $sqlQuery = "SELECT * FROM klant WHERE klant_id = :klant_id";
         $statement = $db->prepare($sqlQuery);
         $statement->execute(array(':klant_id' => $userID));
 
@@ -131,7 +133,7 @@ function isCookieValid($db)
         } else {
             //if cookie dont exist destroy session and logout user
             $isValid = false;
-            $this->signout();
+            signout();
         }
     }
     return $isValid;

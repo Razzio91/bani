@@ -1,7 +1,6 @@
 <?php
 include_once "resources/database.php";
 include_once "resources/utilities.php";
-include_once "resources/send-email.php";
 //process the form
 if (isset($_POST['signupBtn'], $_POST['token'])) {
 
